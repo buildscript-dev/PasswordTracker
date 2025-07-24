@@ -9,7 +9,7 @@ class PasswordViewModel(
     private val dao: PasswordDao
 ) : ViewModel() {
 
-    private val _sortType = MutableStateFlow(SortType.USERNAME)
+    private val _sortType = MutableStateFlow(SortType.PLATFORM)
 
     private val _passwords = _sortType
         .flatMapLatest { sortType ->
@@ -69,7 +69,7 @@ class PasswordViewModel(
                 )
 
                 viewModelScope.launch {
-                    dao.updatePassword(newPassword)
+                    dao.insertPassword(newPassword)
                 }
 
                 _state.update {

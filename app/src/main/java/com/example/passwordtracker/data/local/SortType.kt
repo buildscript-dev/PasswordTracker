@@ -1,7 +1,7 @@
 package com.example.passwordtracker.data.local
 
 enum class SortType {
-PLATFORM,
+    PLATFORM,
     EMAIL,
     USERNAME,
     PHONE_NUMBER,
