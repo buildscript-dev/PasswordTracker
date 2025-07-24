@@ -22,7 +22,24 @@ interface PasswordDao {
     @Query("SELECT * FROM passwords ORDER BY  id DESC")
     fun getAllPasswords(): Flow<List<Password>>
 
-    @Query("SELECT * FROM passwords WHERE isDone = 1")
-    fun getSecurityKey(): Flow<List<Password>>
+
+    @Query("SELECT * FROM passwords ORDER BY username ASC")
+    fun getContactsOrderedByUserName(): Flow<List<Password>>
+
+    @Query("SELECT * FROM passwords ORDER BY email ASC")
+    fun getContactsOrderedByEmail(): Flow<List<Password>>
+
+    @Query("SELECT * FROM passwords ORDER BY phoneNumber ASC")
+    fun getContactsOrderedByPhoneNumber(): Flow<List<Password>>
+
+    @Query("SELECT * FROM passwords ORDER BY platform ASC")
+    fun getContactsOrderedByPlatform(): Flow<List<Password>>
+
+
+    @Query("SELECT * FROM passwords ORDER BY recentDate ASC")
+    fun getContactsOrderedByRecentDate(): Flow<List<Password>>
+
+
+
 
 }
