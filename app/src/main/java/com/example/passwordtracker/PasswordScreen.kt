@@ -30,7 +30,8 @@ fun PasswordScreen(
 ) {
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(onClick = {
+            FloatingActionButton(containerColor = Color(0XFF255F38),
+                onClick = {
                 onEvent(PasswordEvent.ShowDialog)
             }) {
                 Icon(
@@ -69,8 +70,12 @@ fun PasswordScreen(
                     ) {
                         RadioButton(
                             selected = state.sortType == sortType,
-                            onClick = { onEvent(PasswordEvent.SortPassword(sortType)) }
+                            onClick = { onEvent(PasswordEvent.SortPassword(sortType)) },
+                            colors = RadioButtonDefaults.colors(
+                                selectedColor = Color(0xFF1F7D53) // this is your custom green
+                            )
                         )
+
                         Text(
                             text = sortType.name.replace("_", " "),
                             style = MaterialTheme.typography.labelMedium
@@ -89,7 +94,7 @@ fun PasswordScreen(
                         modifier = Modifier
                             .fillMaxWidth(),
                         colors = CardDefaults.cardColors(
-                            containerColor = Color(0xFFF4F4F4)
+                            containerColor = Color(0xff004030)
                         ),
                         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                     ) {
@@ -106,10 +111,14 @@ fun PasswordScreen(
                                     fontWeight = FontWeight.Bold
                                 )
                                 Spacer(modifier = Modifier.height(4.dp))
+                            password.userName?.takeIf {
+                                it.isNotBlank()
+                            }?.let { user ->
                                 Text(
-                                    text = "Username: ${password.userName.orEmpty()}",
+                                    text = "Username: $user}",
                                     fontSize = 14.sp
                                 )
+                            }
                                 Text(
                                     text = "Email: ${password.email}",
                                     fontSize = 14.sp
@@ -118,10 +127,13 @@ fun PasswordScreen(
                                     text = "Password: ${password.password}",
                                     fontSize = 14.sp
                                 )
-                                password.phoneNumber?.let {
-                                    Text(text = "Phone: $it", fontSize = 14.sp)
+                                password.phoneNumber?.takeIf {
+                                    it.isNotBlank()
+                                }?.let { phone ->
+                                    Text(text = "Phone: $phone", fontSize = 14.sp)
                                 }
                             }
+
 
                             IconButton(
                                 onClick = { onEvent(PasswordEvent.DeletePassword(password)) }
